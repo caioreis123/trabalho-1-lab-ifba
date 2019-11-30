@@ -33,8 +33,8 @@ int main(){
     // testQ1();
     // testQ2();
     // testQ3();
-    testQ4();
-    // testQ5();
+    // testQ4();
+    testQ5();
     // testQ6();
     // testSomar();
     // testFatorial();
@@ -176,12 +176,11 @@ void testQ4(){
 
 }
 
-
 void testQ5(){
-    printf("%d\n",q5(345) == 543);
-    printf("%d\n",q5(78) == 87);
-    printf("%d\n",q5(3) == 3);
-    printf("%d\n",q5(5430) == 345);
+    printf("%d\n",q5(345));//== 543
+    printf("%d\n",q5(78));// == 87
+    printf("%d\n",q5(3));// == 3
+    printf("%d\n",q5(5430));//== 345
 }
 
 void testQ6(){

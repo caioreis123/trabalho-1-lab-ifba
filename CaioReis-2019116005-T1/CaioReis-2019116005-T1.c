@@ -119,10 +119,7 @@ int q1(char *data){
 		((diaInt >= 1 && diaInt <= 28) && (mesInt == 2))) datavalida=1;
       else datavalida=0;   
 
-   //  printf("%s\n", data);
-   //  printf("dia: %d\n", diaInt);
-   //  printf("mes: %d\n", mesInt);
-   //  printf("ano: %d\n", anoInt);   
+ 
     
     //retorno final
     return datavalida;
@@ -332,6 +329,18 @@ int q4(char *strTexto, char *strBusca, int posicoes[30]){
  */
 
 int q5(int num){
+   char sNum1 [9999];
+   char sNum2 [9999];
+   int contA, contB;
+
+   sprintf(sNum1,"%d",num);
+   sprintf(sNum2,"%d",num);
+   
+   for(contA=strlen(sNum1)-1, contB=0;contA>=0;contA--, contB++){
+      sNum1[contB]=sNum2[contA];
+   }
+
+   num = atoi(sNum1);  
 
     return num;
 }
