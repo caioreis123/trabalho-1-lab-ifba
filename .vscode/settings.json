@@ -2,6 +2,7 @@
   "files.associations": {
     "random": "c",
     "array": "c",
-    "string": "c"
+    "string": "c",
+    "sstream": "c"
   }
 }

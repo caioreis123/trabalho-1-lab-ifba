@@ -204,73 +204,7 @@ int q2(char *datainicial, char *datafinal, int *qtdDias, int *qtdMeses, int *qtd
     if(anoFim<anoIni || (anoFim==anoIni && mesFim<mesIni)|| (anoFim==anoIni&&mesFim==mesIni&&diaFim<diaIni)){
        return 4;
     }
-
-   //  //calcular dias totais da datainicial:
-   //  int totalIni = 0, contA;
-   //  for(contA=anoIni;contA>1;contA--){
-   //    if (contA==(contA % 400 == 0 || (contA % 4 == 0 && contA % 100 != 0))){
-   //       totalIni+=366;
-   //    }else totalIni+=365;
-   //  }
-   //  for(contA=mesIni;contA>1;contA--){
-   //     if(contA == 1 || contA == 3 || contA == 5 || contA == 7 || contA == 8 || contA == 10 || contA == 12){
-   //        totalIni+=31;
-   //     }
-   //     else if(contA==2 && (anoIni % 400 == 0 || (anoIni % 4 == 0 && anoIni % 100 != 0))){
-   //        totalIni+=29;
-   //     }
-   //     else if (contA==2){
-   //        totalIni+=28;
-   //     }
-   //     else{
-   //        totalIni+=30;
-   //     }
-   //  }
-   //  totalIni+=diaIni;
-
-   //  printf("dias totais da data inicial: %d\n", totalIni);
-
-   //  //calcular dias totais da datafinal:
-   //  int totalFim = 0;
-   //  for(contA=anoFim;contA>1;contA--){
-   //    if (contA==(contA % 400 == 0 || (contA % 4 == 0 && contA % 100 != 0))){
-   //       totalFim+=366;
-   //    }else totalFim+=365;
-   //  }
-   //  for(contA=mesFim;contA>1;contA--){
-   //     if(contA == 1 || contA == 3 || contA == 5 || contA == 7 || contA == 8 || contA == 10 || contA == 12){
-   //        totalFim+=31;
-   //     }
-   //     else if(contA==2 && (anoFim % 400 == 0 || (anoFim % 4 == 0 && anoFim % 100 != 0))){
-   //        totalFim+=29;
-   //     }
-   //     else if (contA==2){
-   //        totalFim+=28;
-   //     }
-   //     else{
-   //        totalFim+=30;
-   //     }
-   //  }
-   //  totalFim+=diaFim;
-
-   //  printf("dias totais da data final: %d\n", totalFim);
-
-
-   //  if(totalIni > totalFim)
-   //      return 4;
-
-   //  int diferencaDias = totalFim-totalIni;
-
-    //segunda tentativa:
-   //  if((anoFim>anoIni && mesFim>mesIni && diaFim>=diaIni)||(anoFim>anoIni && mesFim>=mesIni)){
-   //     nAnos=anoFim-anoIni;
-   //  }else if((anoFim>anoIni && mesFim>mesIni && diaFim<diaIni)||(anoFim>anoIni&&mesFim<mesIni)){
-   //     nAnos=(anoFim-anoIni)-1;
-   //  }
-   //  else nAnos=0;
-
-   //terceira tentativa:
-
+   
    //se o dia final é menor do que o inicial é preciso pegar emprestado todos os dias do mês anterior
    // antes de realizar a subtração para achar a diferença entre os dias
    int mesFimAnterior = mesFim-1; //pq se pega emprestado os dias do mês anterior (por serem os que já passaram)
@@ -307,9 +241,7 @@ int q2(char *datainicial, char *datafinal, int *qtdDias, int *qtdMeses, int *qtd
 
     //coloque o retorno correto
     return 1;
-
 }
-
 
 /*
  Q3 = encontrar caracter em texto
@@ -322,8 +254,22 @@ int q2(char *datainicial, char *datafinal, int *qtdDias, int *qtdMeses, int *qtd
     Um número n >= 0.
  */
 int q3(char *texto, char c, int isCaseSensitive){
-    int qtdOcorrencias = -1;
+    int qtdOcorrencias = 0, cont;
+   //  char textoCopia[500];
+   //  strcpy(textoCopia,"Renato Lima Novais");
 
+    if(!isCaseSensitive){
+       for(cont=0;cont<strlen(texto);cont++){
+          texto[cont]=toupper(texto[cont]);
+       }
+       c=toupper(c);
+    }  
+
+    for(cont=0;cont<strlen(texto);cont++){
+       if(texto[cont]==c){
+          qtdOcorrencias++;
+       }
+    }
     return qtdOcorrencias;
 
 }
