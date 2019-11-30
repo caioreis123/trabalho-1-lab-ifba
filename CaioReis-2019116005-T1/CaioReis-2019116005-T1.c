@@ -346,7 +346,7 @@ int q5(int num){
 }
 
 /*
- Q5 = ocorrência de um número em outro
+ Q6 = ocorrência de um número em outro
  @objetivo
     Verificar quantidade de vezes da ocorrência de um número em outro
  @entrada
@@ -356,6 +356,23 @@ int q5(int num){
  */
 
 int q6(int numerobase, int numerobusca){
-    int qtdOcorrencias;
+    int qtdOcorrencias=0, contA=0, contB=0;
+    char strBase[9999];
+    char strBusca[9999];
+
+   sprintf(strBase,"%d",numerobase);
+   sprintf(strBusca,"%d",numerobusca);
+
+   for(contA=0, contB=0;contA<strlen(strBase);contA++){
+      while(strBase[contA]==strBusca[contB]&&contA<strlen(strBase)){
+         contA++;
+         contB++;
+      }
+      if(contB==strlen(strBusca)){
+         qtdOcorrencias++;
+      }
+      contB=0;            
+   }
+  
     return qtdOcorrencias;
 }
