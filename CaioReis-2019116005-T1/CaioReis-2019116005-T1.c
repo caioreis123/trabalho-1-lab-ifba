@@ -22,6 +22,7 @@
 // #################################################
 
 #include <stdio.h>
+#include <string.h>
 
 /*
 ## função utilizada para testes  ##
@@ -67,11 +68,28 @@ int fatorial(int x){ //função utilizada para testes
     1 -> se data válida
  */
 int q1(char *data){
-    int datavalida = 1;
+    int datavalida = 1, tudo, parte, diaInt, mesInt, anoInt;
+    char diaStr[2], mesStr[2], anoStr[4];
 
-    //printf("%s\n", data);
+   //  printf("%s\n", data);
+   //  printf("%d\n", strlen(data));
 
-
+    for(tudo=0, parte=0; data[tudo]!='/'; tudo++, parte++){       
+       diaStr[parte] = data[tudo];       
+    }
+    diaStr[parte] = '\0';
+    tudo++;
+    for(parte=0; data[tudo]!='/'; tudo++, parte++){       
+       mesStr[parte] = data[tudo];       
+    }
+   //  tudo++;
+   //  for(parte=0; data[tudo]!='/'; tudo++, parte++){       
+   //     anoStr[parte] = data[tudo];       
+   //  }
+    printf("dia: %s\n", diaStr);
+   //  printf("mes: %s\n", mesStr);
+   //  printf("ano: %s\n", anoStr);
+    
     if (datavalida)
         return 1;
     else

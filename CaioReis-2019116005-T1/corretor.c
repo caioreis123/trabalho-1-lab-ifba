@@ -30,14 +30,14 @@ void testQ5();
 void testQ6();
 
 int main(){
-    testSomar();
-    testFatorial();
     testQ1();
-    testQ2();
-    testQ3();
-    testQ4();
-    testQ5();
-    testQ6();
+    // testQ2();
+    // testQ3();
+    // testQ4();
+    // testQ5();
+    // testQ6();
+    // testSomar();
+    // testFatorial();
 }
 
 
@@ -58,13 +58,13 @@ void testFatorial(){
 void testQ1(){
     char str[11];
     strcpy(str,"29/02/2015");
-    printf("%d\n",q1(str) == 0);
+    printf("%d\n",q1(str));
     strcpy(str,"29/02/2012");
-    printf("%d\n",q1(str) == 1);
+    printf("%d\n",q1(str));
     strcpy(str,"9/13/2014");
-    printf("%d\n",q1(str) == 0);
+    printf("%d\n",q1(str));
     strcpy(str,"45/4/2014");
-    printf("%d\n",q1(str) == 0);
+    printf("%d\n",q1(str));
 }
 
 void testQ2(){
