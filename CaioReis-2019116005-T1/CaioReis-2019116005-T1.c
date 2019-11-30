@@ -89,9 +89,7 @@ int q1(char *data){
     for(parte=0; tudo<strlen(data); tudo++, parte++){       
        anoStr[parte] = data[tudo];       
     }
-    anoStr[parte]='\0';
-    
-     
+    anoStr[parte]='\0';     
 
     //validar tamanho:
     if(strlen(diaStr)!=2 && strlen(diaStr)!=1){
@@ -121,10 +119,10 @@ int q1(char *data){
 		((diaInt >= 1 && diaInt <= 28) && (mesInt == 2))) datavalida=1;
       else datavalida=0;   
 
-    printf("%s\n", data);
-    printf("dia: %d\n", diaInt);
-    printf("mes: %d\n", mesInt);
-    printf("ano: %d\n", anoInt);   
+   //  printf("%s\n", data);
+   //  printf("dia: %d\n", diaInt);
+   //  printf("mes: %d\n", mesInt);
+   //  printf("ano: %d\n", anoInt);   
     
     //retorno final
     return datavalida;
@@ -148,18 +146,159 @@ int q2(char *datainicial, char *datafinal, int *qtdDias, int *qtdMeses, int *qtd
     //calcule os dados e armazene nas três variáveis a seguir
     int nDias, nMeses, nAnos;
 
-
     if (q1(datainicial) == 0)
+        //datainicial inválida
         return 2;
 
-    nDias = 4;
-    nMeses = 10;
-    nAnos = 2;
+    if (q1(datafinal) == 0)
+        //datafinal inválida
+        return 3;
+
+   int tudo=0, parte, diaIni, mesIni, anoIni, diaFim, mesFim, anoFim;
+   char diaStr[100], mesStr[100], anoStr[100]; 
+    
+    //capturar valores dataInicial
+    for(tudo=0, parte=0; datainicial[tudo]!='/'; tudo++, parte++){       
+       diaStr[parte] = datainicial[tudo];       
+    }
+    diaStr[parte] = '\0';
+    tudo++;
+
+    for(parte=0; datainicial[tudo]!='/'; tudo++, parte++){       
+       mesStr[parte] = datainicial[tudo];       
+    }
+     tudo++;
+     mesStr[parte]='\0';
+    for(parte=0; tudo<strlen(datainicial); tudo++, parte++){       
+       anoStr[parte] = datainicial[tudo];       
+    }
+    anoStr[parte]='\0';
+
+   //converter inteiros:
+    diaIni = atoi(diaStr);
+    mesIni = atoi(mesStr);
+    anoIni = atoi(anoStr);
+
+   //capturar valores dataFinal
+    for(tudo=0, parte=0; datafinal[tudo]!='/'; tudo++, parte++){       
+       diaStr[parte] = datafinal[tudo];       
+    }
+    diaStr[parte] = '\0';
+    tudo++;
+
+    for(parte=0; datafinal[tudo]!='/'; tudo++, parte++){       
+       mesStr[parte] = datafinal[tudo];       
+    }
+     tudo++;
+     mesStr[parte]='\0';
+    for(parte=0; tudo<strlen(datafinal); tudo++, parte++){       
+       anoStr[parte] = datafinal[tudo];       
+    }
+    anoStr[parte]='\0';
+
+   //converter inteiros:
+    diaFim = atoi(diaStr);
+    mesFim = atoi(mesStr);
+    anoFim = atoi(anoStr);
+
+    if(anoFim<anoIni || (anoFim==anoIni && mesFim<mesIni)|| (anoFim==anoIni&&mesFim==mesIni&&diaFim<diaIni)){
+       return 4;
+    }
+
+   //  //calcular dias totais da datainicial:
+   //  int totalIni = 0, contA;
+   //  for(contA=anoIni;contA>1;contA--){
+   //    if (contA==(contA % 400 == 0 || (contA % 4 == 0 && contA % 100 != 0))){
+   //       totalIni+=366;
+   //    }else totalIni+=365;
+   //  }
+   //  for(contA=mesIni;contA>1;contA--){
+   //     if(contA == 1 || contA == 3 || contA == 5 || contA == 7 || contA == 8 || contA == 10 || contA == 12){
+   //        totalIni+=31;
+   //     }
+   //     else if(contA==2 && (anoIni % 400 == 0 || (anoIni % 4 == 0 && anoIni % 100 != 0))){
+   //        totalIni+=29;
+   //     }
+   //     else if (contA==2){
+   //        totalIni+=28;
+   //     }
+   //     else{
+   //        totalIni+=30;
+   //     }
+   //  }
+   //  totalIni+=diaIni;
+
+   //  printf("dias totais da data inicial: %d\n", totalIni);
+
+   //  //calcular dias totais da datafinal:
+   //  int totalFim = 0;
+   //  for(contA=anoFim;contA>1;contA--){
+   //    if (contA==(contA % 400 == 0 || (contA % 4 == 0 && contA % 100 != 0))){
+   //       totalFim+=366;
+   //    }else totalFim+=365;
+   //  }
+   //  for(contA=mesFim;contA>1;contA--){
+   //     if(contA == 1 || contA == 3 || contA == 5 || contA == 7 || contA == 8 || contA == 10 || contA == 12){
+   //        totalFim+=31;
+   //     }
+   //     else if(contA==2 && (anoFim % 400 == 0 || (anoFim % 4 == 0 && anoFim % 100 != 0))){
+   //        totalFim+=29;
+   //     }
+   //     else if (contA==2){
+   //        totalFim+=28;
+   //     }
+   //     else{
+   //        totalFim+=30;
+   //     }
+   //  }
+   //  totalFim+=diaFim;
+
+   //  printf("dias totais da data final: %d\n", totalFim);
 
 
+   //  if(totalIni > totalFim)
+   //      return 4;
 
+   //  int diferencaDias = totalFim-totalIni;
 
-    /*mantenha o código abaixo, para salvar os dados em 
+    //segunda tentativa:
+   //  if((anoFim>anoIni && mesFim>mesIni && diaFim>=diaIni)||(anoFim>anoIni && mesFim>=mesIni)){
+   //     nAnos=anoFim-anoIni;
+   //  }else if((anoFim>anoIni && mesFim>mesIni && diaFim<diaIni)||(anoFim>anoIni&&mesFim<mesIni)){
+   //     nAnos=(anoFim-anoIni)-1;
+   //  }
+   //  else nAnos=0;
+
+   //terceira tentativa:
+
+   //se o dia final é menor do que o inicial é preciso pegar emprestado todos os dias do mês anterior
+   // antes de realizar a subtração para achar a diferença entre os dias
+   int mesFimAnterior = mesFim-1; //pq se pega emprestado os dias do mês anterior (por serem os que já passaram)
+   if(diaFim<diaIni){
+      if(mesFimAnterior==2){ //se o mes anterior for fevereiro, há tratamento especial
+         if(anoFim % 400 == 0 || (anoFim % 4 == 0 && anoFim % 100 != 0)){ //verifica-se bissexto
+            diaFim+=29;
+         }
+         else diaFim+=28;
+      }
+      if(mesFimAnterior == 1 || mesFimAnterior == 3 || mesFimAnterior == 5 || mesFimAnterior == 7 || mesFimAnterior == 8 || mesFimAnterior == 10 || mesFimAnterior == 12){
+         diaFim+=31;
+      }
+      else diaFim=+30;
+   mesFim--; //tendo em vista que voce adicionou os dias do mês anterior no saldo de dias, 
+   //você precisa subtrair 1 mês para compensar e não contar em dobro.
+   }
+
+   if(mesFim<mesIni){
+      mesFim+=12;
+      anoFim--;
+   }
+
+   nDias = diaFim-diaIni;
+   nMeses = mesFim-mesIni;
+   nAnos = anoFim-anoIni;
+
+    /*mantenha o código abaixo, para salvar os dados
     nos parâmetros da funcao
     */
     *qtdDias = nDias;

@@ -30,8 +30,8 @@ void testQ5();
 void testQ6();
 
 int main(){
-    testQ1();
-    // testQ2();
+    // testQ1();
+    testQ2();
     // testQ3();
     // testQ4();
     // testQ5();
@@ -80,10 +80,10 @@ void testQ2(){
     strcpy(datainicial,"01/06/2015");
     strcpy(datafinal,"01/06/2016");
     retorno = q2(datainicial, datafinal, &qtdDias, &qtdMeses, &qtdAnos);
-    printf("%d\n",retorno == 1);
-    printf("%d\n",qtdDias == 0);
-    printf("%d\n",qtdMeses == 0);
-    printf("%d\n",qtdAnos == 1);
+    printf("retorno: %d\n",retorno);
+    printf("qtdDias: %d\n",qtdDias);
+    printf("qtdMeses: %d\n",qtdMeses);
+    printf("qtdAnos: %d\n",qtdAnos);
 
     //teste 2 - retornos
     qtdDias = -1;
@@ -93,17 +93,30 @@ void testQ2(){
     strcpy(datainicial,"01/30/2015");
     strcpy(datafinal,"01/06/2016");
     retorno = q2(datainicial, datafinal, &qtdDias, &qtdMeses, &qtdAnos);
-    printf("%d\n",retorno == 2);
+    // printf("%d\n",retorno == 2); data inicial inválida
+    printf("retorno: %d\n",retorno);
+    printf("qtdDias: %d\n",qtdDias);
+    printf("qtdMeses: %d\n",qtdMeses);
+    printf("qtdAnos: %d\n",qtdAnos);
 
     strcpy(datainicial,"01/3/2015");
     strcpy(datafinal,"40/06/2016");
     retorno = q2(datainicial, datafinal, &qtdDias, &qtdMeses, &qtdAnos);
-    printf("%d\n",retorno == 3);
+    // printf("%d\n",retorno == 3); data final inválida
+    printf("retorno: %d\n",retorno);
+    printf("qtdDias: %d\n",qtdDias);
+    printf("qtdMeses: %d\n",qtdMeses);
+    printf("qtdAnos: %d\n",qtdAnos);
 
     strcpy(datainicial,"01/06/2016");
     strcpy(datafinal,"01/06/2015");
     retorno = q2(datainicial, datafinal, &qtdDias, &qtdMeses, &qtdAnos);
-    printf("%d\n",retorno == 4);
+    // printf("%d\n",retorno == 4);
+    printf("retorno: %d\n",retorno);
+    printf("qtdDias: %d\n",qtdDias);
+    printf("qtdMeses: %d\n",qtdMeses);
+    printf("qtdAnos: %d\n",qtdAnos);
+
 
     //teste 3
     qtdDias = -1;
@@ -113,10 +126,11 @@ void testQ2(){
     strcpy(datainicial,"06/06/2017");
     strcpy(datafinal,"07/07/2017");
     retorno = q2(datainicial, datafinal, &qtdDias, &qtdMeses, &qtdAnos);
-    printf("%d\n",retorno == 1);
-    printf("%d\n",qtdDias == 1);
-    printf("%d\n",qtdMeses == 1);
-    printf("%d\n",qtdAnos == 0);
+    // printf("%d\n",retorno == 1);   
+    printf("retorno: %d\n",retorno);
+    printf("qtdDias: %d\n",qtdDias);
+    printf("qtdMeses: %d\n",qtdMeses);
+    printf("qtdAnos: %d\n",qtdAnos);
 
 }
 
