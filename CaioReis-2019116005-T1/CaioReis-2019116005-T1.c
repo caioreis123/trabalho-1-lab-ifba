@@ -292,23 +292,30 @@ int q3(char *texto, char c, int isCaseSensitive){
 int q4(char *strTexto, char *strBusca, int posicoes[30]){
     int qtdOcorrencias = 0, contA=0, contB=0, contC=0;
 
+   //  tirar os acentos:
+   int i, acentos=0;
+   
+   
     for(contA=0; contA<strlen(strTexto);contA++){
        if(strBusca[0]==strTexto[contA]){
           while(strBusca[contB]==strTexto[contA]){
              contA++;
-             contB++;
+             contB++;             
           }
-          printf("contB: %d\n", contB);             
-          if(contB==strlen(strBusca)){
-            posicoes[contC]=contA-(strlen(strBusca)-1);
+          if(contB==strlen(strBusca)){             
+            posicoes[contC]=contA-(strlen(strBusca)-1)-acentos;
             contC++;
-            posicoes[contC]=contA;
-            contC++;
-         }
-         contB=0;
+            posicoes[contC]=contA-acentos;
+            contC++;            
+          }
+          contB=0;
        }
+       if(strTexto[contA]<0&&strTexto[contA+1]<0)  {
+               acentos++;
+            }
     }
-   //  printf("contC: %d\n", contC);
+   
+
     qtdOcorrencias = contC/2;
     return qtdOcorrencias;
 
