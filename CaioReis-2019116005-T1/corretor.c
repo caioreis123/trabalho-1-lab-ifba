@@ -57,13 +57,13 @@ void testFatorial(){
 
 void testQ1(){
     char str[11];
-    strcpy(str,"29/02/2015");
+    strcpy(str,"29/02/15");
     printf("%d\n",q1(str));
-    strcpy(str,"29/02/2012");
+    strcpy(str,"29/02/12");
     printf("%d\n",q1(str));
-    strcpy(str,"9/13/2014");
+    strcpy(str,"9/13/21");
     printf("%d\n",q1(str));
-    strcpy(str,"45/4/2014");
+    strcpy(str,"45/4/99");
     printf("%d\n",q1(str));
 }
 

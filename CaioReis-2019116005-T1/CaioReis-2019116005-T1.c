@@ -23,6 +23,9 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
+#include <stdlib.h>
+
 
 /*
 ## função utilizada para testes  ##
@@ -69,10 +72,9 @@ int fatorial(int x){ //função utilizada para testes
  */
 int q1(char *data){
     int datavalida = 1, tudo=0, parte, diaInt, mesInt, anoInt;
-    char diaStr[3], mesStr[3], anoStr[5]; 
+    char diaStr[100], mesStr[100], anoStr[100]; 
     
-    printf("%s\n", data);
-
+    //capturar valores
     for(tudo=0, parte=0; data[tudo]!='/'; tudo++, parte++){       
        diaStr[parte] = data[tudo];       
     }
@@ -88,26 +90,44 @@ int q1(char *data){
        anoStr[parte] = data[tudo];       
     }
     anoStr[parte]='\0';
-    printf("dia: %s\n", diaStr);
-    printf("mes: %s\n", mesStr);
-    printf("ano: %s\n", anoStr);
-    printf("tamanho do ano: %d\n", strlen(anoStr));
-    if(strlen(diaStr)!=2 || strlen(diaStr)!=1){
+    
+     
+
+    //validar tamanho:
+    if(strlen(diaStr)!=2 && strlen(diaStr)!=1){
        datavalida=0;
     }
 
-    if(strlen(mesStr)!=2 || strlen(mesStr)!=1){
+    if(strlen(mesStr)!=2 && strlen(mesStr)!=1){
        datavalida=0;
     }
 
     if(strlen(anoStr)!=4 && strlen(anoStr)!=2){
        datavalida=0;
     }
+
+    //validar inteiros:
+    diaInt = atoi(diaStr);
+    mesInt = atoi(mesStr);
+    anoInt = atoi(anoStr);
+
+    if(anoInt<100&&anoInt<20) anoInt+=2000;
+    if(anoInt<100&&anoInt>=20) anoInt+=1900;
     
-    if (datavalida)
-        return 1;
-    else
-        return 0;
+
+   if (((diaInt >= 1 && diaInt <= 31) && (mesInt == 1 || mesInt == 3 || mesInt == 5 || mesInt == 7 || mesInt == 8 || mesInt == 10 || mesInt == 12)) ||
+		(diaInt == 29 && mesInt == 2 && (anoInt % 400 == 0 || (anoInt % 4 == 0 && anoInt % 100 != 0))) ||
+		((diaInt >= 1 && diaInt <= 30) && (mesInt == 4 || mesInt == 6 || mesInt == 9 || mesInt == 11)) ||
+		((diaInt >= 1 && diaInt <= 28) && (mesInt == 2))) datavalida=1;
+      else datavalida=0;   
+
+    printf("%s\n", data);
+    printf("dia: %d\n", diaInt);
+    printf("mes: %d\n", mesInt);
+    printf("ano: %d\n", anoInt);   
+    
+    //retorno final
+    return datavalida;
 
 }
 
