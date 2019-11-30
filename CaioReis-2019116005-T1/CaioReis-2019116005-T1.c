@@ -79,15 +79,16 @@ int q1(char *data){
     }
     diaStr[parte] = '\0';
     tudo++;
+
     for(parte=0; data[tudo]!='/'; tudo++, parte++){       
        mesStr[parte] = data[tudo];       
     }
-   //  tudo++;
+     tudo++;
    //  for(parte=0; data[tudo]!='/'; tudo++, parte++){       
    //     anoStr[parte] = data[tudo];       
    //  }
     printf("dia: %s\n", diaStr);
-   //  printf("mes: %s\n", mesStr);
+    printf("mes: %s\n", mesStr);
    //  printf("ano: %s\n", anoStr);
     
     if (datavalida)
