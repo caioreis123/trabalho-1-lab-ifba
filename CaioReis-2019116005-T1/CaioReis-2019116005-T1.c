@@ -68,11 +68,10 @@ int fatorial(int x){ //função utilizada para testes
     1 -> se data válida
  */
 int q1(char *data){
-    int datavalida = 1, tudo, parte, diaInt, mesInt, anoInt;
-    char diaStr[2], mesStr[2], anoStr[4];
-
-   //  printf("%s\n", data);
-   //  printf("%d\n", strlen(data));
+    int datavalida = 1, tudo=0, parte, diaInt, mesInt, anoInt;
+    char diaStr[3], mesStr[3], anoStr[5]; 
+    
+    printf("%s\n", data);
 
     for(tudo=0, parte=0; data[tudo]!='/'; tudo++, parte++){       
        diaStr[parte] = data[tudo];       
@@ -84,12 +83,26 @@ int q1(char *data){
        mesStr[parte] = data[tudo];       
     }
      tudo++;
-   //  for(parte=0; data[tudo]!='/'; tudo++, parte++){       
-   //     anoStr[parte] = data[tudo];       
-   //  }
+     mesStr[parte]='\0';
+    for(parte=0; tudo<strlen(data); tudo++, parte++){       
+       anoStr[parte] = data[tudo];       
+    }
+    anoStr[parte]='\0';
     printf("dia: %s\n", diaStr);
     printf("mes: %s\n", mesStr);
-   //  printf("ano: %s\n", anoStr);
+    printf("ano: %s\n", anoStr);
+    printf("tamanho do ano: %d\n", strlen(anoStr));
+    if(strlen(diaStr)!=2 || strlen(diaStr)!=1){
+       datavalida=0;
+    }
+
+    if(strlen(mesStr)!=2 || strlen(mesStr)!=1){
+       datavalida=0;
+    }
+
+    if(strlen(anoStr)!=4 && strlen(anoStr)!=2){
+       datavalida=0;
+    }
     
     if (datavalida)
         return 1;
