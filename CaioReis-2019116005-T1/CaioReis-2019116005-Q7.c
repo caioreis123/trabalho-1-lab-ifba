@@ -72,8 +72,7 @@ void desenhaTabuleiro(int jogadas[3][3], int vez){
       printf(" | ");
     }
   }
-  printf("\n");  
-  validarJogada(jogadas, vez);  
+  printf("\n");      
 }
 
 void validarJogada(int jogadas[3][3], int vez){
@@ -108,7 +107,7 @@ int checarEmpate(int jogadas[3][3]){
   }else return 1;
 }
 
-int checarVitoria(int jogadas[3][3]){
+int checarVitoria(int jogadas[3][3], int vez){
   int coluna=0, linha=0, soma=0, ambas=0;
 
   //checando linhas:
@@ -117,7 +116,7 @@ int checarVitoria(int jogadas[3][3]){
       soma+=jogadas[linha][coluna];
     }
     if(soma==3||soma==-3){
-      printf("\nVITORIA!\n");
+      printf("\nVITORIA DO JOGADOR %d!\n", vez);
       return 0;
     } 
       else soma=0;
@@ -129,7 +128,7 @@ int checarVitoria(int jogadas[3][3]){
       soma+=jogadas[linha][coluna];
     }
     if(soma==3||soma==-3){
-      printf("\nVITORIA!\n");
+      printf("\nVITORIA DO JOGADOR %d!\n", vez);
       return 0;
     } 
       else soma=0;
@@ -142,8 +141,8 @@ int checarVitoria(int jogadas[3][3]){
     soma+=jogadas[ambas][ambas];
   }
   if(soma==3||soma==-3){
-    printf("\nVITORIA!\n");
-      return 0;
+    printf("\nVITORIA DO JOGADOR %d!\n", vez);
+    return 0;
   } 
       
   soma=0;
@@ -153,7 +152,7 @@ int checarVitoria(int jogadas[3][3]){
     soma+=jogadas[linha][coluna];    
   }
   if(soma==3||soma==-3){
-    printf("\nVITORIA!\n");
+    printf("\nVITORIA DO JOGADOR %d!\n", vez);
     return 0;
   }
 
@@ -189,11 +188,12 @@ void main(){
   }
   while (continua){
   limpaTela();  
-  desenhaTabuleiro(jogadas, vez); 
-  trocaVez(&vez);
-  continua=checarVitoria(jogadas);
+  desenhaTabuleiro(jogadas, vez);
+  validarJogada(jogadas, vez); 
+  continua=checarVitoria(jogadas, vez);
     if(continua){
     continua=checarEmpate(jogadas);
     }
+  trocaVez(&vez);
   }
 }
