@@ -57,6 +57,7 @@ void desenhaTabuleiro(char jogadas[3][3], int vez){
   printf("\n");
   printf("Escolha a celula que deseja jogar: \n");
   fgets(jogada,3,stdin);
+  getchar();
   marcarJogada(jogada, vez, jogadas);  
 }
 
@@ -64,7 +65,7 @@ int checarEmpate(char jogadas[3][3]){
   int i, j, ocupado=0;
   for(i=0;i<3;i++){
     for(j=0;j<3;j++){
-      if(jogadas[i][j]!='X'||jogadas[i][j]!='O') ocupado++;
+      if(jogadas[i][j]!=' ') ocupado++;
     }
   }
   if(ocupado==9) {
