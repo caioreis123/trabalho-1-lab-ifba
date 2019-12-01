@@ -2,50 +2,62 @@
 #include <ctype.h>
 #include<string.h>
 
-void marcarJogada(char jogada[3], int vez, char jogadas[3][3]){
-  jogada[0] = toupper(jogada[0]);
-  printf("jogada eh: %s\n", jogada);
-  if(strcmp(jogada, "A1\0")==0&&vez==1){
-    jogadas[0][0]='X';
-  }else if(strcmp(jogada, "A1")==0&&vez==2){
-    jogadas[0][0]='O';
-  }else if(strcmp(jogada, "A2")==0&&vez==1){
-    jogadas[0][1]='X';
-  }else if(strcmp(jogada, "A2")==0&&vez==2){
-    jogadas[0][1]='O';
-  }else if(strcmp(jogada, "A3")==0&&vez==1){
-    jogadas[0][2]='X';
-  }else if(strcmp(jogada, "A3")==0&&vez==2){
-    jogadas[0][2]='O';
-  }else if(strcmp(jogada, "B1")==0&&vez==1){
-    jogadas[1][0]='X';
-  }else if(strcmp(jogada, "B1")==0&&vez==2){
-    jogadas[1][0]='O';
-  }else if(strcmp(jogada, "B2")==0&&vez==1){
-    jogadas[1][1]='X';
-  }else if(strcmp(jogada, "B2")==0&&vez==2){
-    jogadas[1][1]='O';
-  }else if(strcmp(jogada, "B3")==0&&vez==1){
-    jogadas[1][2]='X';
-  }else if(strcmp(jogada, "B3")==0&&vez==2){
-    jogadas[1][2]='O';
-  }else if(strcmp(jogada, "C1")==0&&vez==1){
-    jogadas[2][0]='X';
-  }else if(strcmp(jogada, "C1")==0&&vez==2){
-    jogadas[2][0]='O';
-  }else if(strcmp(jogada, "C2")==0&&vez==1){
-    jogadas[2][1]='X';
-  }else if(strcmp(jogada, "C2")==0&&vez==2){
-    jogadas[2][1]='O';
-  }else if(strcmp(jogada, "C3")==0&&vez==1){
-    jogadas[2][2]='X';
-  }else if(strcmp(jogada, "C3")==0&&vez==2){
-    jogadas[2][2]='O';
-  }  
+void marcarJogada(int vez, char jogadas[3][3], char letra, int numero){
+  int linha=0, coluna=0;
+  char marca = 'X';
+
+  letra = toupper(letra);
+
+  if(letra=='B') linha=1; 
+  if(letra=='C') linha=2;
+  if(numero==2) coluna=1;
+  if(numero==3) coluna=2;
+  if(vez==2) marca = 'O';
+  jogadas[linha][coluna]=marca;
+  
+  
+  // if(strcmp(jogada, "A1\0")==0&&vez==1){
+  //   jogadas[0][0]='X';
+  // }else if(strcmp(jogada, "A1")==0&&vez==2){
+  //   jogadas[0][0]='O';
+  // }else if(strcmp(jogada, "A2")==0&&vez==1){
+  //   jogadas[0][1]='X';
+  // }else if(strcmp(jogada, "A2")==0&&vez==2){
+  //   jogadas[0][1]='O';
+  // }else if(strcmp(jogada, "A3")==0&&vez==1){
+  //   jogadas[0][2]='X';
+  // }else if(strcmp(jogada, "A3")==0&&vez==2){
+  //   jogadas[0][2]='O';
+  // }else if(strcmp(jogada, "B1")==0&&vez==1){
+  //   jogadas[1][0]='X';
+  // }else if(strcmp(jogada, "B1")==0&&vez==2){
+  //   jogadas[1][0]='O';
+  // }else if(strcmp(jogada, "B2")==0&&vez==1){
+  //   jogadas[1][1]='X';
+  // }else if(strcmp(jogada, "B2")==0&&vez==2){
+  //   jogadas[1][1]='O';
+  // }else if(strcmp(jogada, "B3")==0&&vez==1){
+  //   jogadas[1][2]='X';
+  // }else if(strcmp(jogada, "B3")==0&&vez==2){
+  //   jogadas[1][2]='O';
+  // }else if(strcmp(jogada, "C1")==0&&vez==1){
+  //   jogadas[2][0]='X';
+  // }else if(strcmp(jogada, "C1")==0&&vez==2){
+  //   jogadas[2][0]='O';
+  // }else if(strcmp(jogada, "C2")==0&&vez==1){
+  //   jogadas[2][1]='X';
+  // }else if(strcmp(jogada, "C2")==0&&vez==2){
+  //   jogadas[2][1]='O';
+  // }else if(strcmp(jogada, "C3")==0&&vez==1){
+  //   jogadas[2][2]='X';
+  // }else if(strcmp(jogada, "C3")==0&&vez==2){
+  //   jogadas[2][2]='O';
+  // }  
 }
 
 void desenhaTabuleiro(char jogadas[3][3], int vez){
-  char jogada[3];  
+  char jogada[3], letra;
+  int numero;  
   printf("Vez do Jogador %d\n", vez);  
   printf("\n");
   printf("    1    2   3\n");
@@ -56,8 +68,8 @@ void desenhaTabuleiro(char jogadas[3][3], int vez){
   printf("C   %c |  %c | %c\n", jogadas[2][0], jogadas[2][1], jogadas[2][2]);
   printf("\n");
   printf("Escolha a celula que deseja jogar: \n");
-  fgets(jogada,3,stdin);
-  marcarJogada(jogada, vez, jogadas);  
+  scanf("%c %d", &letra, &numero);
+  marcarJogada(vez, jogadas, letra, numero);  
 }
 
 int checarEmpate(char jogadas[3][3]){
