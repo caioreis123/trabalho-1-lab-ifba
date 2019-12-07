@@ -1,5 +1,4 @@
-#define NUM_NAVIOS 5
-#define TAM 10
+#define TAM 5
 #include <stdio.h>
 
 void exibeTabuleiroProprio(char tabuleiro[TAM][TAM]){
@@ -17,44 +16,45 @@ void exibeTabuleiroProprio(char tabuleiro[TAM][TAM]){
 }
 
 void colocaBarcos(char tabuleiro[TAM][TAM], int tamBarco){
-  int extremidade, linha1, coluna1, linha2, coluna2, sucesso=0, cont;
+  int extremidade, linha1, coluna1, linha2, coluna2, menorLinha, menorColuna, cont;
 
-    while(!sucesso){
-      printf("Digite a linha da extremidade 1\n");
-      scanf("%d", &linha1);
-      getchar();
-      printf("Digite a coluna da extremidade 1\n");
-      scanf("%d", &coluna1);
-      getchar();
-
-      if(tabuleiro[linha1][coluna1]!='~') printf("Celula ja ocupada. Digite novamente\n");
-      else{
-        tabuleiro[linha1][coluna1]='N';
-        sucesso=1;
-      }    
-    }
-
-    sucesso=0;
-
-    while(!sucesso){
-      printf("Digite a linha da extremidade 2\n");
-      scanf("%d", &linha2);
-      getchar();
-      printf("Digite a coluna da extremidade 2\n");
-      scanf("%d", &coluna2);
-      getchar();
-
-      if(tabuleiro[linha2][coluna2]!='~') printf("Celula ja ocupada. Digite novamente\n");
-      else{
-        tabuleiro[linha2][coluna2]='N';
-        sucesso=1;
-      }    
-    }    
-
-    for(cont=0;cont<tamBarco, cont++){
-      if
-    }
+  printf("Digite a linha da extremidade 1\n");
+  scanf("%d", &linha1);
+  getchar();
+  printf("Digite a coluna da extremidade 1\n");
+  scanf("%d", &coluna1);
+  getchar();
   
+  printf("Digite a linha da extremidade 2\n");
+  scanf("%d", &linha2);
+  getchar();
+  printf("Digite a coluna da extremidade 2\n");
+  scanf("%d", &coluna2);
+  getchar();
+
+  if(linha1<linha2) menorLinha=linha1;
+  else menorLinha=linha2;
+
+  if(coluna1<coluna2) menorColuna=coluna1;
+  else menorColuna=coluna2;        
+
+  if(linha1==linha2){
+    for(cont=0;cont<tamBarco; cont++){
+      if(tabuleiro[linha1][menorColuna+cont]!='~'){
+        printf("Espaco ocupado. Digite novos valores.\n");
+        colocaBarcos(tabuleiro, tamBarco);
+      }
+    }
+  }
+
+  if(coluna1==coluna2){
+    for(cont=0;cont<tamBarco; cont++){
+      if(tabuleiro[coluna1][menorLinha+cont]!='~'){
+        printf("Espaco ocupado. Digite novos valores.\n");
+        colocaBarcos(tabuleiro, tamBarco);
+      }
+    }
+  }  
 }
 
 void preencheTabuleiro(char tabuleiro[TAM][TAM]){
@@ -86,12 +86,14 @@ void inicializarTabuleiros(char tabuleiro1[TAM][TAM], char tabuleiro2[TAM][TAM])
 
   int jogador;
   for(jogador=1;jogador<3;jogador++){
-    printf("Tabuleiro do jogador %d\n", jogador);
+    
     if(jogador==1){
-    preencheTabuleiro(tabuleiro1);
+      printf("Tabuleiro do jogador %d\n", jogador);
+      preencheTabuleiro(tabuleiro1);
     }
     else{
-    preencheTabuleiro(tabuleiro2);
+      printf("Tabuleiro do jogador %d\n", jogador);
+      preencheTabuleiro(tabuleiro2);
     }
   }
 }
@@ -108,7 +110,7 @@ int main(){
   int turno=1;
 
   while(continua){
-
+    inicializarTabuleiros(tabuleiro1, tabuleiro2);
     trocaTurno(&turno);
   }
 }
