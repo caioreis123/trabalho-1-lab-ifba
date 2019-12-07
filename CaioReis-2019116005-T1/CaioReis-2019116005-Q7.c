@@ -191,9 +191,9 @@ void main(){
   desenhaTabuleiro(jogadas, vez);
   validarJogada(jogadas, vez); 
   continua=checarVitoria(jogadas, vez);
-    if(continua){
+  if(continua){
     continua=checarEmpate(jogadas);
-    }
+  }
   trocaVez(&vez);
   }
 }
