@@ -141,14 +141,12 @@ void preencheTabuleiro(char tabuleiro[TAM][TAM], int jogador){
 
   // comentando para testes. não apague!!***********
 
-  printf("Tabuleiro do jogador %d\n", jogador);
   exibeTabuleiroProprio(tabuleiro, jogador);
   printf("Tamanho do barco a ser colocado: %d\n", BARCO2);
   colocaBarcos(tabuleiro, BARCO2);
   limpatela();
 
   for(a=0; a<3; a++){
-    printf("Tabuleiro do jogador %d\n", jogador);
     exibeTabuleiroProprio(tabuleiro, jogador);
     printf("Tamanho do barco a ser colocado: %d\n", BARCO3);
     colocaBarcos(tabuleiro, BARCO3);
@@ -215,12 +213,13 @@ void tabuleiroAdversario(char tabuleiro[TAM][TAM]){
     limpatela();
     printf("Acertou o tiro!\n");
   }
-  else if(tabuleiro[linha][coluna]=='~'){
+  else 
+  if(tabuleiro[linha][coluna]=='~'){
     tabuleiro[linha][coluna]='X';
     limpatela();
     printf("Agua!\n");
-  }
-  else{
+  } else 
+  if(tabuleiro[linha][coluna]=='X'){
     printf("Voce ja atirou ai. Escolha outro lugar. \n");
     tabuleiroAdversario(tabuleiro);
   }
