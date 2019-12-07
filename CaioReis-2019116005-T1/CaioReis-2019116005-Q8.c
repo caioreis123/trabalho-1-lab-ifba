@@ -1,6 +1,6 @@
-#define TAM 5
-#define BARCO1 2
-#define BARCO2 1
+#define TAM 10
+#define BARCO1 4
+#define BARCO2 3
 #define BARCO3 1
 #include <stdio.h>
 
@@ -141,19 +141,19 @@ void preencheTabuleiro(char tabuleiro[TAM][TAM], int jogador){
 
   // comentando para testes. não apague!!***********
 
-  // printf("Tabuleiro do jogador %d\n", jogador);
-  // exibeTabuleiroProprio(tabuleiro, jogador);
-  // printf("Tamanho do barco a ser colocado: %d\n", BARCO2);
-  // colocaBarcos(tabuleiro, BARCO2);
-  // limpatela();
+  printf("Tabuleiro do jogador %d\n", jogador);
+  exibeTabuleiroProprio(tabuleiro, jogador);
+  printf("Tamanho do barco a ser colocado: %d\n", BARCO2);
+  colocaBarcos(tabuleiro, BARCO2);
+  limpatela();
 
-  // for(a=0; a<3; a++){
-  //   printf("Tabuleiro do jogador %d\n", jogador);
-  //   exibeTabuleiroProprio(tabuleiro, jogador);
-  //   printf("Tamanho do barco a ser colocado: %d\n", BARCO3);
-  //   colocaBarcos(tabuleiro, BARCO3);
-  //   limpatela();
-  // }
+  for(a=0; a<3; a++){
+    printf("Tabuleiro do jogador %d\n", jogador);
+    exibeTabuleiroProprio(tabuleiro, jogador);
+    printf("Tamanho do barco a ser colocado: %d\n", BARCO3);
+    colocaBarcos(tabuleiro, BARCO3);
+    limpatela();
+  }
 }
 
 void inicializarTabuleiros(char tabuleiro1[TAM][TAM], char tabuleiro2[TAM][TAM]){ 
@@ -204,6 +204,11 @@ void tabuleiroAdversario(char tabuleiro[TAM][TAM]){
   scanf("%d", &linha);
   printf("Digite a coluna\n");
   scanf("%d", &coluna);
+
+  if(linha>TAM-1||linha<0||coluna>TAM-1||coluna<0){
+    printf("Celula fora dos limites. Digite outro valor.\n");
+    tabuleiroAdversario(tabuleiro);
+  }
   
   if(tabuleiro[linha][coluna]=='N'){
     tabuleiro[linha][coluna]='O';
