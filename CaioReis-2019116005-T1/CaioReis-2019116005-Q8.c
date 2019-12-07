@@ -4,9 +4,18 @@
 #define BARCO3 1
 #include <stdio.h>
 
+void limpatela(){
+  int i=0;
+ 
+  while(i != 100){
+    putchar('\n');
+    i++;
+  }
+}
+
 void exibeTabuleiroProprio(char tabuleiro[TAM][TAM], int jogador){
   int linha, coluna;
-
+  
   printf("TABULEIRO DO JOGADOR: %d\n", jogador);
   printf("  ");
   for(coluna=0;coluna<TAM;coluna++) printf("%d ", coluna);
@@ -29,19 +38,21 @@ int colocaBarcos(char tabuleiro[TAM][TAM], int tamBarco){
   printf("Digite a coluna da extremidade 1\n");
   scanf("%d", &coluna1);
   
+  if(tamBarco>1){
   printf("Digite a linha da extremidade 2\n");
   scanf("%d", &linha2);
 
   printf("Digite a coluna da extremidade 2\n");
   scanf("%d", &coluna2);
+  }
 
-  if(linha1<linha2) menorLinha=linha1;
+  if(tamBarco==1||linha1<linha2) menorLinha=linha1;
   else menorLinha=linha2;
 
-  if(coluna1<coluna2) menorColuna=coluna1;
+  if(tamBarco==1||coluna1<coluna2) menorColuna=coluna1;
   else menorColuna=coluna2;        
 
-  if(linha1==linha2){
+  if(tamBarco==1||linha1==linha2){
     for(cont=0;cont<tamBarco; cont++){
       if(tabuleiro[linha1][menorColuna+cont]!='~'){
         printf("Espaco ocupado. Digite novos valores.\n");
@@ -50,26 +61,25 @@ int colocaBarcos(char tabuleiro[TAM][TAM], int tamBarco){
     }
   }
 
-  if(coluna1==coluna2){
+  if(tamBarco==1||coluna1==coluna2){
     for(cont=0;cont<tamBarco; cont++){
-      if(tabuleiro[coluna1][menorLinha+cont]!='~'){
+      if(tabuleiro[menorLinha+cont][coluna1]!='~'){
         printf("Espaco ocupado. Digite novos valores.\n");
         colocaBarcos(tabuleiro, tamBarco);
       }
     }
   }
 
-  if(linha1==linha2){
+  if(tamBarco==1||linha1==linha2){
     for(cont=0;cont<tamBarco; cont++){
       tabuleiro[linha1][menorColuna+cont]='N';      
     }
     return 1;
   }
 
-  if(coluna1==coluna2){
+  if(tamBarco==1||coluna1==coluna2){
     for(cont=0;cont<tamBarco; cont++){
-      tabuleiro[coluna1][menorLinha+cont]='N';
-      printf("colocou na mesma coluna!\n");      
+      tabuleiro[menorLinha+cont][coluna1]='N';
     }
     return 1;
   }
@@ -83,20 +93,23 @@ void preencheTabuleiro(char tabuleiro[TAM][TAM], int jogador){
   exibeTabuleiroProprio(tabuleiro, jogador);
   printf("Tamanho do barco a ser colocado: %d\n", BARCO1);
   colocaBarcos(tabuleiro, BARCO1);
+  limpatela();
 
-  // ***********************************comentado só pra facilitar o teste. NÃO APAGUE!!!!!!!!!!!!!!!!!!!!
+  // comentando para testes. não apague!!***********
 
-  // printf("Tabuleiro do jogador %d\n", jogador);
-  // exibeTabuleiroProprio(tabuleiro, jogador);
-  // printf("Tamanho do barco a ser colocado: %d\n", BARCO2);
-  // colocaBarcos(tabuleiro, BARCO2);
+  printf("Tabuleiro do jogador %d\n", jogador);
+  exibeTabuleiroProprio(tabuleiro, jogador);
+  printf("Tamanho do barco a ser colocado: %d\n", BARCO2);
+  colocaBarcos(tabuleiro, BARCO2);
+  limpatela();
 
-  // for(a=0; a<3; a++){
-  //   printf("Tabuleiro do jogador %d\n", jogador);
-  //   exibeTabuleiroProprio(tabuleiro, jogador);
-  //   printf("Tamanho do barco a ser colocado: %d\n", BARCO3);
-  //   colocaBarcos(tabuleiro, BARCO3);
-  // }
+  for(a=0; a<3; a++){
+    printf("Tabuleiro do jogador %d\n", jogador);
+    exibeTabuleiroProprio(tabuleiro, jogador);
+    printf("Tamanho do barco a ser colocado: %d\n", BARCO3);
+    colocaBarcos(tabuleiro, BARCO3);
+    limpatela();
+  }
 }
 
 void inicializarTabuleiros(char tabuleiro1[TAM][TAM], char tabuleiro2[TAM][TAM]){ 
@@ -121,24 +134,100 @@ void inicializarTabuleiros(char tabuleiro1[TAM][TAM], char tabuleiro2[TAM][TAM])
   }
 }
 
-void trocaTurno(int *turno){
-  if(*turno==1) *turno=2;
-  else *turno=1;
+void trocaJogador(int *jogador){
+  if(*jogador==1) *jogador=2;
+  else *jogador=1;
 }
 
-void tiro(char tabuleiro1[TAM][TAM], char tabuleiro2[TAM][TAM], int turno){
+void tabuleiroAdversario(char tabuleiro[TAM][TAM]){
+  int linha, coluna;
 
+  printf("TABULEIRO DO ADVERSARIO:\n");
+  printf("  ");
+  for(coluna=0;coluna<TAM;coluna++) printf("%d ", coluna);
+  printf("\n");
+  for (linha=0;linha<TAM;linha++){
+    printf("%d ", linha);
+    for (coluna=0; coluna<TAM; coluna++){
+      if(tabuleiro[linha][coluna]=='N') printf("~ ");      
+      else printf("%c ",tabuleiro[linha][coluna]);
+    }
+    printf("\n");
+  }
+
+  printf("Escolha onde deseja atirar\n");
+  printf("Digite a linha\n");
+  scanf("%d", &linha);
+  printf("Digite a coluna\n");
+  scanf("%d", &coluna);
+  
+  if(tabuleiro[linha][coluna]=='N'){
+    tabuleiro[linha][coluna]='O';
+    limpatela();
+    printf("Acertou o tiro!\n");
+  }
+  else if(tabuleiro[linha][coluna]=='~'){
+    tabuleiro[linha][coluna]='X';
+    limpatela();
+    printf("Agua!\n");
+  }
+  else{
+    printf("Voce ja atirou ai. Escolha outro lugar. \n");
+    tabuleiroAdversario(tabuleiro);
+  }
+}
+
+void tiro(char tabuleiro1[TAM][TAM], char tabuleiro2[TAM][TAM], int jogador){
+  int linha, coluna;
+
+  if(jogador==1){
+    exibeTabuleiroProprio(tabuleiro1, jogador);
+    printf("\n\n");
+    tabuleiroAdversario(tabuleiro2);
+  }
+  else{
+    exibeTabuleiroProprio(tabuleiro2, jogador);
+    printf("\n\n");
+    tabuleiroAdversario(tabuleiro1);
+  } 
+}
+
+int checarVitoria(char tabuleiro1[TAM][TAM], char tabuleiro2[TAM][TAM], int jogador){
+  int linha, coluna, vitoria1=1, vitoria2=1;
+
+  for (linha=0;linha<TAM;linha++){
+    for (coluna=0; coluna<TAM; coluna++){
+      if(tabuleiro2[linha][coluna]=='N') vitoria1=0;
+    }
+  }
+
+  for (linha=0;linha<TAM;linha++){
+    for (coluna=0; coluna<TAM; coluna++){
+      if(tabuleiro1[linha][coluna]=='N') vitoria2=0;
+    }
+  }
+  if(vitoria1==1){
+    printf("JOGADOR 1 VENCEU!\n");
+    return 0;
+  }
+  if(vitoria2==1){
+    printf("JOGADOR 2 VENCEU!\n");
+    return 0;
+  }
+  printf("e o jogo continua... \n");
+  return 1;  
 }
 
 int main(){
   char tabuleiro1[TAM][TAM];
   char tabuleiro2[TAM][TAM];
   int continua=1;
-  int turno=1;
+  int jogador=1;
 
+  inicializarTabuleiros(tabuleiro1, tabuleiro2);
   while(continua){
-    inicializarTabuleiros(tabuleiro1, tabuleiro2);
-    tiro(tabuleiro1, tabuleiro2, turno);
-    trocaTurno(&turno);
+    tiro(tabuleiro1, tabuleiro2, jogador);
+    trocaJogador(&jogador);
+    continua=checarVitoria(tabuleiro1, tabuleiro2, jogador);    
   }
 }
