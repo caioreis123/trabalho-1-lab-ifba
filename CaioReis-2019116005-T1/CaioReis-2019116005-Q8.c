@@ -1,5 +1,5 @@
-#define TAM 10
-#define BARCO1 4
+#define TAM 5
+#define BARCO1 2
 #define BARCO2 3
 #define BARCO3 1
 #include <stdio.h>
@@ -32,7 +32,7 @@ void exibeTabuleiroProprio(char tabuleiro[TAM][TAM], int jogador){
 int colocaBarcos(char tabuleiro[TAM][TAM], int tamBarco){
   int linha1, coluna1, linha2, coluna2, menorLinha, menorColuna, maiorLinha, maiorColuna, cont;
 
-  printf("Digite a linha da extremidade 1\n");
+  printf("\nDigite a linha da extremidade 1\n");
   scanf("%d", &linha1);
 
   printf("Digite a coluna da extremidade 1\n");
@@ -68,60 +68,64 @@ int colocaBarcos(char tabuleiro[TAM][TAM], int tamBarco){
   else{
     menorLinha=linha1;
     menorColuna=coluna1;
+    linha2=linha1;
+    coluna2=coluna1;
   }
 
   if(tamBarco>1&&linha1==linha2){
     if(tamBarco!=(maiorColuna-menorColuna)+1){
-      printf("Nao eh possivel posicionar o barco dessa forma. Por favor tente novamente\n");
-      colocaBarcos(tabuleiro, tamBarco);
+      printf("O tamanho do barco difere dos espacos selecionados. Por favor, tente novamente\n");
+      return 0;
     }
   }
 
   if(tamBarco>1&&coluna1==coluna2){
     if(tamBarco!=(maiorLinha-menorLinha)+1){
-      printf("Nao eh possivel posicionar o barco dessa forma. Por favor tente novamente\n");
-      colocaBarcos(tabuleiro, tamBarco);
+      printf("O tamanho do barco difere dos espacos selecionados. Por favor, tente novamente\n");
+      return 0;
     }
   }
 
-  if(tamBarco==1||linha1==linha2){
+  if(linha1==linha2){
     for(cont=0;cont<tamBarco; cont++){
       if(tabuleiro[linha1][menorColuna+cont]!='~'){
-        printf("Espaco ocupado. Digite novos valores.\n");
-        colocaBarcos(tabuleiro, tamBarco);
+        printf("Barco na horizontal. Espaco ocupado. Digite novos valores.\n");
+        return 0;
       }
     }
   }
 
-  if(tamBarco==1||coluna1==coluna2){
+  if(coluna1==coluna2){
     for(cont=0;cont<tamBarco; cont++){
       if(tabuleiro[menorLinha+cont][coluna1]!='~'){
-        printf("Espaco ocupado. Digite novos valores.\n");
-        colocaBarcos(tabuleiro, tamBarco);
+        printf("Barco na vertical. Espaco ocupado. Digite novos valores.\n");
+        return 0;
       }
     }
   }
-
+  
   if((linha1<0 || linha1>TAM-1) || (coluna1<0 ||coluna1>TAM-1)){
-    printf("celula fora do limite do jogo. DIgite novos valores\n");
-    colocaBarcos(tabuleiro, tamBarco);
+    printf("celula fora do limite do jogo. Digite novos valores\n");    
+    return 0;
   }
 
   if(tamBarco>1){
     if((linha2<0 || linha2>TAM-1) || (coluna2<0 ||coluna2>TAM-1)){
-    printf("celula fora do limite do jogo. DIgite novos valores\n");
-    colocaBarcos(tabuleiro, tamBarco);
+    printf("celula fora do limite do jogo. Digite novos valores\n");
+    return 0;
     }
   }
 
-  if(tamBarco==1||linha1==linha2){
+  //a inserção de valores no tabuleiro está acontecendo mesmo depois que acusa barco ocupado
+
+  if(linha1==linha2){
     for(cont=0;cont<tamBarco; cont++){
       tabuleiro[linha1][menorColuna+cont]='N';      
     }
     return 1;
   }
 
-  if(tamBarco==1||coluna1==coluna2){
+  if(coluna1==coluna2){
     for(cont=0;cont<tamBarco; cont++){
       tabuleiro[menorLinha+cont][coluna1]='N';
     }
@@ -129,29 +133,31 @@ int colocaBarcos(char tabuleiro[TAM][TAM], int tamBarco){
   }
 
   printf("Nao eh possivel posicionar o barco dessa forma. Por favor tente novamente\n");
-  colocaBarcos(tabuleiro, tamBarco);
+  return 0;
 }
 
 void preencheTabuleiro(char tabuleiro[TAM][TAM], int jogador){
-  int a;  
+  int a, sucesso=0;  
   exibeTabuleiroProprio(tabuleiro, jogador);
   printf("Tamanho do barco a ser colocado: %d\n", BARCO1);
-  colocaBarcos(tabuleiro, BARCO1);
+  while(!sucesso){
+    sucesso=colocaBarcos(tabuleiro, BARCO1);
+  }  
   limpatela();
 
   // comentando para testes. não apague!!***********
 
-  exibeTabuleiroProprio(tabuleiro, jogador);
-  printf("Tamanho do barco a ser colocado: %d\n", BARCO2);
-  colocaBarcos(tabuleiro, BARCO2);
-  limpatela();
+  // exibeTabuleiroProprio(tabuleiro, jogador);
+  // printf("Tamanho do barco a ser colocado: %d\n", BARCO2);
+  // colocaBarcos(tabuleiro, BARCO2);
+  // limpatela();
 
-  for(a=0; a<3; a++){
-    exibeTabuleiroProprio(tabuleiro, jogador);
-    printf("Tamanho do barco a ser colocado: %d\n", BARCO3);
-    colocaBarcos(tabuleiro, BARCO3);
-    limpatela();
-  }
+  // for(a=0; a<3; a++){
+  //   exibeTabuleiroProprio(tabuleiro, jogador);
+  //   printf("Tamanho do barco a ser colocado: %d\n", BARCO3);
+  //   colocaBarcos(tabuleiro, BARCO3);
+  //   limpatela();
+  // }
 }
 
 void inicializarTabuleiros(char tabuleiro1[TAM][TAM], char tabuleiro2[TAM][TAM]){ 
@@ -162,18 +168,7 @@ void inicializarTabuleiros(char tabuleiro1[TAM][TAM], char tabuleiro2[TAM][TAM])
       tabuleiro1[linha][coluna]='~';
       tabuleiro2[linha][coluna]='~';
     }
-  }
-
-  int jogador;
-  for(jogador=1;jogador<3;jogador++){
-    
-    if(jogador==1){      
-      preencheTabuleiro(tabuleiro1, jogador);
-    }
-    else{      
-      preencheTabuleiro(tabuleiro2, jogador);
-    }
-  }
+  }  
 }
 
 void trocaJogador(int *jogador){
@@ -181,7 +176,7 @@ void trocaJogador(int *jogador){
   else *jogador=1;
 }
 
-void tabuleiroAdversario(char tabuleiro[TAM][TAM]){
+int tabuleiroAdversario(char tabuleiro[TAM][TAM]){
   int linha, coluna;
 
   printf("TABULEIRO DO ADVERSARIO:\n");
@@ -205,38 +200,44 @@ void tabuleiroAdversario(char tabuleiro[TAM][TAM]){
 
   if(linha>TAM-1||linha<0||coluna>TAM-1||coluna<0){
     printf("Celula fora dos limites. Digite outro valor.\n");
-    tabuleiroAdversario(tabuleiro);
+    return 0;
   }
   
   if(tabuleiro[linha][coluna]=='N'){
     tabuleiro[linha][coluna]='O';
     limpatela();
     printf("Acertou o tiro!\n");
+    return 1;
   }
   else 
   if(tabuleiro[linha][coluna]=='~'){
     tabuleiro[linha][coluna]='X';
     limpatela();
     printf("Agua!\n");
+    return 1;
   } else 
   if(tabuleiro[linha][coluna]=='X'){
     printf("Voce ja atirou ai. Escolha outro lugar. \n");
-    tabuleiroAdversario(tabuleiro);
+    return 0;
   }
 }
 
 void tiro(char tabuleiro1[TAM][TAM], char tabuleiro2[TAM][TAM], int jogador){
-  int linha, coluna;
+  int linha, coluna, sucesso=0;
 
   if(jogador==1){
     exibeTabuleiroProprio(tabuleiro1, jogador);
     printf("\n\n");
-    tabuleiroAdversario(tabuleiro2);
+    while (!sucesso){
+      sucesso=tabuleiroAdversario(tabuleiro2);
+    }
   }
   else{
     exibeTabuleiroProprio(tabuleiro2, jogador);
     printf("\n\n");
-    tabuleiroAdversario(tabuleiro1);
+    while (!sucesso){
+      sucesso=tabuleiroAdversario(tabuleiro1);
+    }
   } 
 }
 
@@ -273,6 +274,8 @@ int main(){
   int jogador=1;
 
   inicializarTabuleiros(tabuleiro1, tabuleiro2);
+  preencheTabuleiro(tabuleiro1, 1);
+  preencheTabuleiro(tabuleiro2, 2);
   while(continua){
     tiro(tabuleiro1, tabuleiro2, jogador);
     trocaJogador(&jogador);
