@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <ctype.h>
-#include<string.h>
+#include <string.h>
 #include <stdlib.h>
 
 void validarJogada(int jogadas[3][3], int vez);
@@ -26,7 +26,6 @@ void marcarJogada(char letra, int numero, int vez, int jogadas[3][3]){
 }
 
 void desenhaTabuleiro(int jogadas[3][3], int vez){
-  char jogada[3];
   int coluna=0;  
   printf("\nVez do Jogador %d\n", vez);  
   printf("\n");
@@ -78,20 +77,25 @@ void desenhaTabuleiro(int jogadas[3][3], int vez){
 void validarJogada(int jogadas[3][3], int vez){
   char letra;
   int numero;
-  char jogada[3];
+  char jogada[100];
   int valido=0;
+  int cont;
+
+  for(cont=0;cont<3;cont++) jogada[cont]=-1;
 
   while(!valido){
-  printf("\nEscolha a celula que deseja jogar:");
-  fgets(jogada,3,stdin);
-  getchar();  
+  printf("\nEscolha a celula que deseja jogar. \n[Exemplo: B2]\n");
+  scanf("%s", jogada);
+  getchar();
+  
   letra = toupper(jogada[0]);
   numero = jogada[1]-'0';
-    if((letra>='A'&&letra<='C')&&(numero>=1&&numero<=3)){
+    if((letra>='A'&&letra<='C')&&(numero>=1&&numero<=3)&&(strlen(jogada)==2)){
       valido=1;
-    }  
-  marcarJogada(letra, numero, vez, jogadas);
+    }
+    else printf("\nCelula invalida. Digite novamente\n");  
   }
+  marcarJogada(letra, numero, vez, jogadas);
 }
 
 int checarEmpate(int jogadas[3][3]){
