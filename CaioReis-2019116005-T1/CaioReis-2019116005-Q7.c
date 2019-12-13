@@ -25,10 +25,8 @@ void marcarJogada(char letra, int numero, int vez, int jogadas[3][3]){
   }  
 }
 
-void desenhaTabuleiro(int jogadas[3][3], int vez){
+void desenhaTabuleiro(int jogadas[3][3]){
   int coluna=0;  
-  printf("\nVez do Jogador %d\n", vez);  
-  printf("\n");
   printf("    1    2     3\n");
   printf("A ");
   for(coluna=0;coluna<3;coluna++){
@@ -81,8 +79,6 @@ void validarJogada(int jogadas[3][3], int vez){
   int valido=0;
   int cont;
 
-  for(cont=0;cont<3;cont++) jogada[cont]=-1;
-
   while(!valido){
   printf("\nEscolha a celula que deseja jogar. \n[Exemplo: B2]\n");
   scanf("%s", jogada);
@@ -98,7 +94,7 @@ void validarJogada(int jogadas[3][3], int vez){
   marcarJogada(letra, numero, vez, jogadas);
 }
 
-int checarEmpate(int jogadas[3][3]){
+int checarEmpate(int jogadas[3][3], int vez){
   int i, j, ocupado=0;
   for(i=0;i<3;i++){
     for(j=0;j<3;j++){
@@ -107,6 +103,7 @@ int checarEmpate(int jogadas[3][3]){
   }
   if(ocupado==9) {
     printf("EMPATE!\n");
+    desenhaTabuleiro(jogadas);
     return 0;
   }else return 1;
 }
@@ -121,6 +118,7 @@ int checarVitoria(int jogadas[3][3], int vez){
     }
     if(soma==3||soma==-3){
       printf("\nVITORIA DO JOGADOR %d!\n", vez);
+      desenhaTabuleiro(jogadas);
       return 0;
     } 
       else soma=0;
@@ -133,6 +131,7 @@ int checarVitoria(int jogadas[3][3], int vez){
     }
     if(soma==3||soma==-3){
       printf("\nVITORIA DO JOGADOR %d!\n", vez);
+      desenhaTabuleiro(jogadas);
       return 0;
     } 
       else soma=0;
@@ -146,6 +145,7 @@ int checarVitoria(int jogadas[3][3], int vez){
   }
   if(soma==3||soma==-3){
     printf("\nVITORIA DO JOGADOR %d!\n", vez);
+    desenhaTabuleiro(jogadas);
     return 0;
   } 
       
@@ -157,6 +157,7 @@ int checarVitoria(int jogadas[3][3], int vez){
   }
   if(soma==3||soma==-3){
     printf("\nVITORIA DO JOGADOR %d!\n", vez);
+    desenhaTabuleiro(jogadas);
     return 0;
   }
 
@@ -191,12 +192,13 @@ void main(){
     }
   }
   while (continua){
-  limpaTela();  
-  desenhaTabuleiro(jogadas, vez);
+  limpaTela();
+  printf("\nVez do Jogador %d\n", vez);  
+  desenhaTabuleiro(jogadas);
   validarJogada(jogadas, vez); 
   continua=checarVitoria(jogadas, vez);
   if(continua){
-    continua=checarEmpate(jogadas);
+    continua=checarEmpate(jogadas, vez);
   }
   trocaVez(&vez);
   }
