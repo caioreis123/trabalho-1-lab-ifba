@@ -20,8 +20,8 @@
 //renomeie o arquivo do include abaixo para PrimeiroUltimoNomeMATRICULA.c
 #include "CaioReis-2019116005-T1.h"
 
-// void testSomar(); //função utilizada para testes
-// void testFatorial(); //função utilizada para testes
+void testSomar(); //função utilizada para testes
+void testFatorial(); //função utilizada para testes
 void testQ1();
 void testQ2();
 void testQ3();
@@ -32,28 +32,28 @@ void testQ6();
 int main(){
     // testSomar();
     // testFatorial();
-    // testQ1();
-    // testQ2();
-    // testQ3();
-    // testQ4();
+    testQ1();
+    testQ2();
+    testQ3();
+    testQ4();
     testQ5();
-    // testQ6();
+    testQ6();
 }
 
 
-// void testSomar(){
-//     printf("%d\n",somar(3, 4) == 7);
-//     printf("%d\n",somar(-1, 3) == 2);
-//     printf("%d\n",somar(-6, 6) == 0);
-//     printf("%d\n",somar(74, 9) == 83);
-//     printf("%d\n",somar(30, -9) == 21);
-// }
+void testSomar(){
+    printf("%d\n",somar(3, 4) == 7);
+    printf("%d\n",somar(-1, 3) == 2);
+    printf("%d\n",somar(-6, 6) == 0);
+    printf("%d\n",somar(74, 9) == 83);
+    printf("%d\n",somar(30, -9) == 21);
+}
 
-// void testFatorial(){
-//     printf("%d\n",fatorial(3) == 6);
-//     printf("%d\n",fatorial(1) == 1);
-//     printf("%d\n",fatorial(5) == 120);
-// }
+void testFatorial(){
+    printf("%d\n",fatorial(3) == 6);
+    printf("%d\n",fatorial(1) == 1);
+    printf("%d\n",fatorial(5) == 120);
+}
 
 void testQ1(){
     char str[11];
