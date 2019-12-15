@@ -329,20 +329,38 @@ int q4(char *strTexto, char *strBusca, int posicoes[30]){
  */
 
 int q5(int num){
-   char sNum1 [9999];
-   char sNum2 [9999];
-   int contA, contB;
+   int invNum=0, grandeza=1, aux=num;
 
-   sprintf(sNum1,"%d",num);
-   sprintf(sNum2,"%d",num);
+   while(aux){
+      aux=aux/10;
+      grandeza=grandeza*10;
+   }
+   grandeza=grandeza/10;
+   aux=num;
    
-   for(contA=strlen(sNum1)-1, contB=0;contA>=0;contA--, contB++){
-      sNum1[contB]=sNum2[contA];
+   while(aux){
+      invNum=invNum+(aux%10)*grandeza;
+      aux=aux/10;
+      grandeza=grandeza/10;
    }
 
-   num = atoi(sNum1);  
+   return invNum;
 
-    return num;
+   // usando string:
+   // char sNum1 [9999];
+   // char sNum2 [9999];
+   // int contA, contB;
+
+   // sprintf(sNum1,"%d",num);
+   // sprintf(sNum2,"%d",num);
+   
+   // for(contA=strlen(sNum1)-1, contB=0;contA>=0;contA--, contB++){
+   //    sNum1[contB]=sNum2[contA];
+   // }
+
+   // num = atoi(sNum1);  
+
+   //  return num;
 }
 
 /*

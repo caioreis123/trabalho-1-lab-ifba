@@ -4,6 +4,7 @@
     "array": "c",
     "string": "c",
     "sstream": "c",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "caioreis-2019116005-t1.h": "c"
   }
 }
